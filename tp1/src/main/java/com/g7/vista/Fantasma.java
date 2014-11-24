@@ -83,7 +83,7 @@ public class Fantasma implements Observer{
         		else if(((com.g7.modelo.fantasma.Fantasma)o).estado().equals(EstadosFantasma.MUERTO)){
         			FadeTransition ft1 = new FadeTransition(SEC_15);
         			ft1.setNode(imgFantasmaView);
-        			ft1.setToValue(0.0f);
+        			ft1.setToValue(1.0f);
         			ft1.play();
         			FadeTransition ft2 = new FadeTransition(SEC_15);
         			ft2.setNode(imgFantasmaPresaView);

@@ -20,10 +20,10 @@ import com.g7.modelo.laberinto.Laberinto;
  * Test de cambios de estado de los fantasmas
  */
 public class TestEstadosFantasma{
-	private static int ciclosHastaEvolucionDeCazadorNivelUnoACazadorNivelDos = 20;
-	private static int ciclosHastaEvolucionDeCazadorNivelDosACazadorNivelTres = 20;
-	private static int ciclosHastaEvolucionDePresaACazadorNivelUno = 40;
-	private static int ciclosHastaEvolucionDeMuertoACazadorNivelUno = 10;
+	private static int ciclosHastaEvolucionDeCazadorNivelUnoACazadorNivelDos = 30;
+	private static int ciclosHastaEvolucionDeCazadorNivelDosACazadorNivelTres = 30;
+	private static int ciclosHastaEvolucionDePresaACazadorNivelUno = 60;
+	private static int ciclosHastaEvolucionDeMuertoACazadorNivelUno = 60;
 	
 	@Before
 	public void setUp() {

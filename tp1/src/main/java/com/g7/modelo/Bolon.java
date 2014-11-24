@@ -16,7 +16,7 @@ public class Bolon extends Observable implements Posicionable {
 		this.laberinto = laberinto;
 		this.posicion = posicion;
 		this.laberinto.agregarPosicionable(this);
-		this.puntaje = 0;
+		this.puntaje = 5;
 		this.id = "bolon";
 	}
 	public Posicion posicion() {

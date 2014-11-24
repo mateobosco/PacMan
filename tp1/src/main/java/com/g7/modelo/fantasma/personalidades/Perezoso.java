@@ -73,8 +73,19 @@ public class Perezoso implements Personalidad {
 			}
 			return celdaNueva.posicion();
 		}
-		return fantasma.posicion();
-
+		else{
+			this.camino.vaciar();
+			Celda celdaVieja = fantasma.getLaberinto().getCelda(fantasma.posicion());
+			Celda celdaNueva = fantasma.getLaberinto().getCelda(new Posicion(Integer.parseInt(fantasma.getLaberinto().getInicioFantasma().substring(2,4)),Integer.parseInt(fantasma.getLaberinto().getInicioFantasma().substring(0,2))));
+			celdaVieja.eliminarElementoPosicionable(fantasma);
+			celdaNueva.addElementoPosicionable(fantasma);
+			Collection<Posicionable> elementos = new ArrayList<Posicionable>();
+			elementos.addAll(celdaNueva.getElementosPosicionable());
+			for(Posicionable elemento : elementos){
+				fantasma.superponer(elemento,celdaNueva);
+			}
+			return celdaNueva.posicion();
+		}
 	}
 
 	public int getVision() {

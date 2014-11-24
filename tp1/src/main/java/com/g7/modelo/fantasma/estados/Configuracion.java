@@ -54,12 +54,11 @@ public class Configuracion {
 	}
 
 	private Configuracion()	{
-		ciclosHastaEvolucionCazadorNivelUno = 20;
-		ciclosHastaEvolucionCazadorNivelDos = 20;
-		ciclosHastaEvolucionCazadorNivelTres = 20;
-		ciclosHastaEvolucionPresa = 40;
-		ciclosHastaEvolucionMuerto = 10;
-		
+		ciclosHastaEvolucionCazadorNivelUno = 30;
+		ciclosHastaEvolucionCazadorNivelDos = 30;
+		ciclosHastaEvolucionCazadorNivelTres = 30;
+		ciclosHastaEvolucionPresa = 60;
+		ciclosHastaEvolucionMuerto = 60;	
 	}
 	
 	public static Configuracion getConfiguracion() {

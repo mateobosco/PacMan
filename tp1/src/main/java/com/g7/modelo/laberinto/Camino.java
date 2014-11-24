@@ -29,5 +29,9 @@ public class Camino {
 	public void addPosiciones(List<Posicion> positions){
 		this.posiciones.addAll(positions);
 	}
+	
+	public void vaciar(){
+		this.posiciones.clear();
+	}
 
 }

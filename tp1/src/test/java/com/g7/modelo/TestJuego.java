@@ -19,22 +19,19 @@ import com.g7.modelo.laberinto.Dimension;
 import com.g7.modelo.laberinto.Laberinto;
 
 public class TestJuego {
-
-	private StringBuilder inputPacManTick;
 	
 	private Juego juego;
 	
 	@Test
-	public void testJuegoUnaVezYElPacmanYaSuma59Puntos() {
+	public void testJuegoUnaVezYElPacmanYaSuma12Puntos() {
 		OutputStream outputStreamLaberinto = new ByteArrayOutputStream();
 		OutputStream outputStreamPersonajes = new ByteArrayOutputStream();
-		//Direccion direccion = PacmanTickReader.read(new ByteArrayInputStream(inputPacManTick.toString().getBytes()));
 		juego.jugar();
 		for(Escenario escenario : juego.getEscenarios()){
 			LaberintoTickWriter.write(escenario.getLaberinto(), outputStreamLaberinto);
 			PersonajesTickWriter.write(escenario.getPersonajes(), outputStreamPersonajes);
 		}
-		assertEquals(59,juego.getPacman().getPuntaje());
+		assertEquals(12,juego.getPacman().getPuntaje());
 	}
 	
 	@Before
@@ -43,14 +40,9 @@ public class TestJuego {
 		StringBuilder inputPersonajes = new StringBuilder();
 		inputPersonajes.append("<juego   posicionPacman=\"0003\" fila=\"00\" columna=\"03\" sentido=\"izquierda\" puntaje=\"0\" finJuego=\"false\">");
 		inputPersonajes.append("<fantasma id=\"1\" nodo=\"0010\" fila=\"00\" columna=\"10\" sentido=\"arriba\" personalidad=\"zonzo\" estado=\"cazador\" />");
-		inputPersonajes.append("<fantasma id=\"2\" nodo=\"0000\" fila=\"00\" columna=\"00\" sentido=\"arriba\" personalidad=\"perezoso\" estado=\"cazador\" />");
+		inputPersonajes.append("<fantasma id=\"2\" nodo=\"0014\" fila=\"00\" columna=\"14\" sentido=\"arriba\" personalidad=\"perezoso\" estado=\"cazador\" />");
 		inputPersonajes.append("<fantasma id=\"3\" nodo=\"0011\" fila=\"00\" columna=\"11\" sentido=\"izquierda\" personalidad=\"buscadorTemperamental\" estado=\"cazador\" />");
 		inputPersonajes.append("</juego>");
-		
-		inputPacManTick = new StringBuilder();
-		inputPacManTick.append("<juego>");
-		inputPacManTick.append("<pacman direccion=\"izquierda\" />");
-		inputPacManTick.append("</juego>");
 		
 		juego = new Juego(new PacMan(new ConfiguracionTicks()));
 		
@@ -86,10 +78,8 @@ public class TestJuego {
 				else if (pos1.getCoordenadaY() == pos2.getCoordenadaY()-1 && pos1.getCoordenadaX() == pos2.getCoordenadaX()){celda1.setCeldaAbajo(celda2);}
 			}
 		}
-		Celda celdaInicial = laberinto.getCelda(new Posicion(0,0));
-		Celda celdaFinal = laberinto.getCelda(new Posicion(ancho-1,0));
-		celdaInicial.setCeldaIzquierda(celdaFinal);
-		celdaFinal.setCeldaDerecha(celdaInicial);
+		laberinto.setInicioPacman("0003");
+		laberinto.setInicioFantasma("0014");
 		return laberinto;
     }
 

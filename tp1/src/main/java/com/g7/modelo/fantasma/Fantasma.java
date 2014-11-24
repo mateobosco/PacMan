@@ -52,7 +52,7 @@ public class Fantasma extends Observable implements Posicionable, Movible {
 		this.conf = conf;
 		this.cantidadDeMovimientosEnUnTick = this.conf.getCantidadDeMovimientosFantasmaEnUnTick(estadoActual);
 		this.cantidadMovimientosRestantes = this.cantidadDeMovimientosEnUnTick;
-		this.puntaje = 1;
+		this.puntaje = 20;
 	}
 	
 	public void vivir(Posicion posicion){
@@ -159,5 +159,11 @@ public class Fantasma extends Observable implements Posicionable, Movible {
 	
 	public void setLaberinto(Laberinto laberinto){
 		this.laberinto = laberinto;
+	}
+	
+	public void resetEstadoFantasma(){
+		this.estadoActual = new NivelUno();
+		setBolonComido(false);
+		fantasmasPasadosAPresa = 0;
 	}
 }

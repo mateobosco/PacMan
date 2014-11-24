@@ -80,6 +80,7 @@ public class Escenario {
 		for(Fantasma fantasma : this.fantasmas){
 			fantasma.setLaberinto(this.laberinto);
 			fantasma.setPosicion(new Posicion(new Integer(this.laberinto.getInicioFantasma().substring(2, 4)),new Integer(this.laberinto.getInicioFantasma().substring(0, 2))));
+			fantasma.resetEstadoFantasma();
 		}
 		try {
 			this.laberintoBase = laberinto.clone();

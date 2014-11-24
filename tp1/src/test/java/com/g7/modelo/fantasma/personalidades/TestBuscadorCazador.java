@@ -124,15 +124,12 @@ public class TestBuscadorCazador {
 		pacman.setDireccion(new Abajo());
 		camino = laberinto.caminoMinimoEntre(fantasma.posicion(), ultimaPosicionPacMan);
 		fantasma.vivir(ultimaPosicionPacMan);
-		while(fantasma.getPersonalidad().veoPacMan(laberinto, fantasma.posicion(), ultimaPosicionPacMan)){
+		Camino otroCamino = laberinto.caminoMinimoEntre(fantasma.posicion(), ultimaPosicionPacMan);
+		while(camino.tamanio()>otroCamino.tamanio()){
 			pacman.vivir();
 			fantasma.vivir(pacman.posicion());
-			Camino otroCamino = laberinto.caminoMinimoEntre(fantasma.posicion(), ultimaPosicionPacMan);
-			assertTrue(camino.tamanio()>otroCamino.tamanio());
 			camino = otroCamino;
-			if(fantasma.posicion().esIgual(ultimaPosicionPacMan)){
-				break;
-			}
+			otroCamino = laberinto.caminoMinimoEntre(fantasma.posicion(), ultimaPosicionPacMan);
 		}
 		Posicion posicion = fantasma.posicion();
 		for(int i = 0; i < 2 ; i++){

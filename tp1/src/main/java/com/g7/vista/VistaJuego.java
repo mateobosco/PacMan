@@ -47,11 +47,11 @@ public class VistaJuego extends Application implements Observer{
 
 	public static final int REFRESH_TIME = 100;
 	public static final int INITIAL_TIME = 1000;
-	public static int anchoCelda = 20;
-	public static int altoCelda = 20;
+	public static double anchoCelda = 20;
+	public static double altoCelda = 20;
 	
-	public static final int anchoPantalla = 380;
-	public static final int altoPantalla = 440;
+	public static final double anchoPantalla = 372;
+	public static final double altoPantalla = 432;
 	
 	public static final double fontSize = 18;
 	
@@ -91,7 +91,7 @@ public class VistaJuego extends Application implements Observer{
 
 	@Override
 	public void start(final Stage primaryStage) {
-		primaryStage.setTitle("PacMan Grupo7");
+		primaryStage.setTitle("PacMan Grupo 07");
 		primaryStage.setResizable(false);
 		this.juego = crearJuego();
 		StackPane root = new StackPane();
@@ -108,8 +108,9 @@ public class VistaJuego extends Application implements Observer{
 					if(actualizarEscenario){
 						for(Escenario escenario : juego.getEscenarios()){
 							if(escenario.isEjecutando()){
-								VistaJuego.anchoCelda = Integer.parseInt(escenario.getLaberinto().getNodoAncho());
-								VistaJuego.altoCelda = Integer.parseInt(escenario.getLaberinto().getNodoAlto());
+								VistaJuego.anchoCelda = Double.parseDouble(escenario.getLaberinto().getNodoAncho());
+								VistaJuego.altoCelda = Double.parseDouble(escenario.getLaberinto().getNodoAlto());
+								
 								{
 									vidas.setTranslateX(0);
 									vidas.setTranslateY(0);
@@ -173,9 +174,7 @@ public class VistaJuego extends Application implements Observer{
 									frutaView.update(fruta, null);
 									frutas.add(frutaView);
 									((StackPane)primaryStage.getScene().getRoot()).getChildren().addAll(frutaView.getImageViews());
-								}/*
-								primaryStage.setWidth(VistaJuego.anchoCelda*escenario.getLaberinto().getDimension().ancho());
-								primaryStage.setHeight(VistaJuego.altoCelda*(escenario.getLaberinto().getDimension().alto()+1));*/
+								}
 								((StackPane)primaryStage.getScene().getRoot()).getChildren().removeAll(gameOver);
 								((StackPane)primaryStage.getScene().getRoot()).getChildren().addAll(gameOver);
 							}
@@ -242,9 +241,12 @@ public class VistaJuego extends Application implements Observer{
 	}
 	
 	private Escenario crearEscenario(com.g7.modelo.PacMan pacman){
-		Escenario escenario = new Escenario(crearLaberintoCompletoDeNxMPosicionesSinBolitas(6,6),pacman);
+		Escenario escenario = new Escenario(crearLaberintoCompletoDeNxMPosicionesSinBolitas(4,4),pacman);
 		for(com.g7.modelo.laberinto.Celda celda : escenario.getLaberinto().getCeldas()){
-			new com.g7.modelo.Bolita(escenario.getLaberinto(), celda.posicion());
+			if(celda.posicion().esIgual(new Posicion(1,0)))
+				new com.g7.modelo.Bolon(escenario.getLaberinto(), celda.posicion());
+			else //if(!celda.posicion().esIgual(new Posicion(escenario.getLaberinto().getDimension().ancho()-1,escenario.getLaberinto().getDimension().alto()-1)))
+				new com.g7.modelo.Bolita(escenario.getLaberinto(), celda.posicion());
 		}
 
 		Collection<Posicionable> personajes = new ArrayList<Posicionable>();
@@ -266,14 +268,14 @@ public class VistaJuego extends Application implements Observer{
 	private Escenario leerEscenario(com.g7.modelo.PacMan pacman){
 		FileInputStream laberintoSimple = null;
 		try {
-			laberintoSimple = new FileInputStream("/home/mateo/workspace/tp/tp/tp1/src/main/java/com/g7/controlador/xml/reader/LaberintoSimple.xml");
+			laberintoSimple = new FileInputStream(".\\src\\main\\java\\com\\g7\\controlador\\xml\\reader\\LaberintoSimple.xml");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 
 		FileInputStream personajesSimple = null;
 		try {
-			personajesSimple = new FileInputStream("/home/mateo/workspace/tp/tp/tp1/src/main/java/com/g7/controlador/xml/reader/PersonajesSimple.xml");
+			personajesSimple = new FileInputStream(".\\src\\main\\java\\com\\g7\\controlador\\xml\\reader\\PersonajesSimple.xml");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

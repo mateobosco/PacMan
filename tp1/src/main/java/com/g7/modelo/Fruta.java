@@ -40,7 +40,7 @@ public class Fruta extends Observable implements Posicionable, Movible {
 		this.cantidadDeMovimientosEnUnTick = this.conf.getCantidadDeMovimientosFrutaEnUnTick();
 		this.cantidadMovimientosRestantes = this.cantidadDeMovimientosEnUnTick;
 		this.frutaComida = false;
-		this.puntaje = 1;
+		this.puntaje = 10;
 		this.camino = this.laberinto.caminoAleatorio(this.posicionActual);
 	}
 	
