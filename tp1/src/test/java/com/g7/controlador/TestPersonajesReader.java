@@ -1,0 +1,432 @@
+package com.g7.controlador;
+
+import static org.junit.Assert.assertEquals;
+
+import java.io.ByteArrayInputStream;
+import java.util.Collection;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import com.g7.controlador.xml.reader.LaberintoReader;
+import com.g7.controlador.xml.reader.PersonajesReader;
+import com.g7.modelo.ConfiguracionTicks;
+import com.g7.modelo.PacMan;
+import com.g7.modelo.Posicionable;
+import com.g7.modelo.laberinto.Laberinto;
+
+public class TestPersonajesReader {
+
+	private StringBuilder input;
+	private Laberinto laberinto;
+	
+	@Test
+	public void juegoTiene6Personajes() {
+
+		PacMan pacman = new PacMan(new ConfiguracionTicks());
+		Collection<Posicionable> personajes = PersonajesReader.read(new ByteArrayInputStream(input.toString().getBytes()), laberinto, pacman);
+		assertEquals(6, personajes.size());
+	}
+
+	@Before
+	public void setUp() {
+		input = new StringBuilder();
+		input.append("<juego   posicionPacman=\"0409\" fila=\"04\" columna=\"09\" sentido=\"izquierda\" puntaje=\"0\" finJuego=\"false\">");
+		input.append("<fantasma id=\"1\" nodo=\"1010\" fila=\"10\" columna=\"10\" sentido=\"arriba\" personalidad=\"zonzo\" estado=\"cazador\" />");
+		input.append("<fantasma id=\"2\" nodo=\"1009\" fila=\"10\" columna=\"09\" sentido=\"arriba\" personalidad=\"zonzo\" estado=\"cazador\" />");
+		input.append("<fantasma id=\"3\" nodo=\"1008\" fila=\"10\" columna=\"08\" sentido=\"izquierda\" personalidad=\"zonzo\" estado=\"cazador\" />");
+		input.append("<fruta id=\"1\" nodo=\"1109\" fila=\"11\" columna=\"09\" sentido=\"izquierda\" />");
+		input.append("<fruta id=\"2\" nodo=\"0105\" fila=\"01\" columna=\"05\" sentido=\"derecha\" />");
+		input.append("</juego>");
+		
+		StringBuilder inputLaberinto = new StringBuilder();
+		inputLaberinto.append("<laberinto ancho=\"19\" alto=\"19\" nodoAncho=\"45\" nodoAlto=\"45\" inicioPacman=\"0408\" inicioFantasmas=\"0809\">");
+
+		inputLaberinto.append("<nodo id=\"0000\" fila=\"00\" columna=\"00\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0001\" fila=\"00\" columna=\"01\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0002\" fila=\"00\" columna=\"02\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0003\" fila=\"00\" columna=\"03\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0004\" fila=\"00\" columna=\"04\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0005\" fila=\"00\" columna=\"05\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0006\" fila=\"00\" columna=\"06\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0007\" fila=\"00\" columna=\"07\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0008\" fila=\"00\" columna=\"08\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0009\" fila=\"00\" columna=\"09\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0010\" fila=\"00\" columna=\"10\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0011\" fila=\"00\" columna=\"11\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0012\" fila=\"00\" columna=\"12\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0013\" fila=\"00\" columna=\"13\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0014\" fila=\"00\" columna=\"14\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0015\" fila=\"00\" columna=\"15\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0016\" fila=\"00\" columna=\"16\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0017\" fila=\"00\" columna=\"17\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0018\" fila=\"00\" columna=\"18\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+
+		inputLaberinto.append("<nodo id=\"0100\" fila=\"01\" columna=\"00\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0101\" fila=\"01\" columna=\"01\" contiene=\"bolita\" izquierda=\"\" derecha=\"0102\" arriba=\"\" abajo=\"0201\" />");
+		inputLaberinto.append("<nodo id=\"0102\" fila=\"01\" columna=\"02\" contiene=\"bolita\" izquierda=\"0101\" derecha=\"0103\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0103\" fila=\"01\" columna=\"03\" contiene=\"bolita\" izquierda=\"0102\" derecha=\"0104\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0104\" fila=\"01\" columna=\"04\" contiene=\"bolita\" izquierda=\"0103\" derecha=\"0105\" arriba=\"\" abajo=\"0204\" />");
+		inputLaberinto.append("<nodo id=\"0105\" fila=\"01\" columna=\"05\" contiene=\"bolita\" izquierda=\"0104\" derecha=\"0106\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0106\" fila=\"01\" columna=\"06\" contiene=\"bolita\" izquierda=\"0105\" derecha=\"0107\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0107\" fila=\"01\" columna=\"07\" contiene=\"bolita\" izquierda=\"0106\" derecha=\"0108\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0108\" fila=\"01\" columna=\"08\" contiene=\"bolita\" izquierda=\"0107\" derecha=\"\" arriba=\"\" abajo=\"0208\" />");
+		inputLaberinto.append("<nodo id=\"0109\" fila=\"01\" columna=\"09\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0110\" fila=\"01\" columna=\"10\" contiene=\"bolita\" izquierda=\"\" derecha=\"0111\" arriba=\"\" abajo=\"0210\" />");
+		inputLaberinto.append("<nodo id=\"0111\" fila=\"01\" columna=\"11\" contiene=\"bolita\" izquierda=\"0110\" derecha=\"0112\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0112\" fila=\"01\" columna=\"12\" contiene=\"bolita\" izquierda=\"0111\" derecha=\"0113\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0113\" fila=\"01\" columna=\"13\" contiene=\"bolita\" izquierda=\"0112\" derecha=\"0114\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0114\" fila=\"01\" columna=\"14\" contiene=\"bolita\" izquierda=\"0113\" derecha=\"0115\" arriba=\"\" abajo=\"0215\" />");
+		inputLaberinto.append("<nodo id=\"0115\" fila=\"01\" columna=\"15\" contiene=\"bolita\" izquierda=\"0114\" derecha=\"0116\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0116\" fila=\"01\" columna=\"16\" contiene=\"bolita\" izquierda=\"0115\" derecha=\"0117\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0117\" fila=\"01\" columna=\"17\" contiene=\"bolita\" izquierda=\"0116\" derecha=\"\" arriba=\"\" abajo=\"0217\" />");
+		inputLaberinto.append("<nodo id=\"0118\" fila=\"01\" columna=\"18\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+
+		inputLaberinto.append("<nodo id=\"0200\" fila=\"02\" columna=\"00\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0201\" fila=\"02\" columna=\"01\" contiene=\"bolon\" izquierda=\"\" derecha=\"\" arriba=\"0200\" abajo=\"0301\" />");
+		inputLaberinto.append("<nodo id=\"0202\" fila=\"02\" columna=\"02\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0203\" fila=\"02\" columna=\"03\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0204\" fila=\"02\" columna=\"04\" contiene=\"bolita\" izquierda=\"\" derecha=\"\" arriba=\"0104\" abajo=\"0304\" />");
+		inputLaberinto.append("<nodo id=\"0205\" fila=\"02\" columna=\"05\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0206\" fila=\"02\" columna=\"06\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0207\" fila=\"02\" columna=\"07\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0208\" fila=\"02\" columna=\"08\" contiene=\"bolita\" izquierda=\"\" derecha=\"\" arriba=\"0108\" abajo=\"0208\" />");
+		inputLaberinto.append("<nodo id=\"0209\" fila=\"02\" columna=\"09\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0210\" fila=\"02\" columna=\"10\" contiene=\"bolita\" izquierda=\"\" derecha=\"\" arriba=\"0110\" abajo=\"0310\" />");
+		inputLaberinto.append("<nodo id=\"0211\" fila=\"02\" columna=\"11\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0212\" fila=\"02\" columna=\"12\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0213\" fila=\"02\" columna=\"13\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0214\" fila=\"02\" columna=\"14\" contiene=\"bolita\" izquierda=\"\" derecha=\"\" arriba=\"0115\" abajo=\"0215\" />");
+		inputLaberinto.append("<nodo id=\"0215\" fila=\"02\" columna=\"15\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0216\" fila=\"02\" columna=\"16\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0217\" fila=\"02\" columna=\"17\" contiene=\"bolon\" izquierda=\"\" derecha=\"\" arriba=\"0117\" abajo=\"0317\" />");
+		inputLaberinto.append("<nodo id=\"0218\" fila=\"02\" columna=\"18\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+
+		inputLaberinto.append("<nodo id=\"0200\" fila=\"03\" columna=\"00\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0201\" fila=\"03\" columna=\"01\" contiene=\"bolita\" izquierda=\"\" derecha=\"\" arriba=\"0200\" abajo=\"0301\" />");
+		inputLaberinto.append("<nodo id=\"0202\" fila=\"03\" columna=\"02\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0203\" fila=\"03\" columna=\"03\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0204\" fila=\"03\" columna=\"04\" contiene=\"bolita\" izquierda=\"\" derecha=\"\" arriba=\"0104\" abajo=\"0304\" />");
+		inputLaberinto.append("<nodo id=\"0205\" fila=\"03\" columna=\"05\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0206\" fila=\"03\" columna=\"06\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0207\" fila=\"03\" columna=\"07\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0208\" fila=\"03\" columna=\"08\" contiene=\"bolita\" izquierda=\"\" derecha=\"\" arriba=\"0108\" abajo=\"0208\" />");
+		inputLaberinto.append("<nodo id=\"0209\" fila=\"03\" columna=\"09\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0210\" fila=\"03\" columna=\"10\" contiene=\"bolita\" izquierda=\"\" derecha=\"\" arriba=\"0110\" abajo=\"0310\" />");
+		inputLaberinto.append("<nodo id=\"0211\" fila=\"03\" columna=\"11\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0212\" fila=\"03\" columna=\"12\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0213\" fila=\"03\" columna=\"13\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0214\" fila=\"03\" columna=\"14\" contiene=\"bolita\" izquierda=\"\" derecha=\"\" arriba=\"0115\" abajo=\"0215\" />");
+		inputLaberinto.append("<nodo id=\"0215\" fila=\"03\" columna=\"15\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0216\" fila=\"03\" columna=\"16\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0217\" fila=\"03\" columna=\"17\" contiene=\"bolita\" izquierda=\"\" derecha=\"\" arriba=\"0117\" abajo=\"0317\" />");
+		inputLaberinto.append("<nodo id=\"0218\" fila=\"03\" columna=\"18\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+
+		inputLaberinto.append("<nodo id=\"0400\" fila=\"04\" columna=\"00\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0401\" fila=\"04\" columna=\"01\" contiene=\"bolita\" izquierda=\"\" derecha=\"0402\" arriba=\"0400\" abajo=\"0502\" />");
+		inputLaberinto.append("<nodo id=\"0402\" fila=\"04\" columna=\"02\" contiene=\"bolita\" izquierda=\"0401\" derecha=\"0403\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0403\" fila=\"04\" columna=\"03\" contiene=\"bolita\" izquierda=\"0402\" derecha=\"0404\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0404\" fila=\"04\" columna=\"04\" contiene=\"bolita\" izquierda=\"0403\" derecha=\"0405\" arriba=\"0403\" abajo=\"0505\" />");
+		inputLaberinto.append("<nodo id=\"0405\" fila=\"04\" columna=\"05\" contiene=\"bolita\" izquierda=\"0404\" derecha=\"0406\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0406\" fila=\"04\" columna=\"06\" contiene=\"bolita\" izquierda=\"0405\" derecha=\"0407\" arriba=\"\" abajo=\"0507\" />");
+		inputLaberinto.append("<nodo id=\"0407\" fila=\"04\" columna=\"07\" contiene=\"bolita\" izquierda=\"0406\" derecha=\"0408\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0408\" fila=\"04\" columna=\"08\" contiene=\"bolita\" izquierda=\"0407\" derecha=\"0409\" arriba=\"0407\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0409\" fila=\"04\" columna=\"09\" contiene=\"bolita\" izquierda=\"0408\" derecha=\"0410\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0410\" fila=\"04\" columna=\"10\" contiene=\"bolita\" izquierda=\"0409\" derecha=\"0411\" arriba=\"0409\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0411\" fila=\"04\" columna=\"11\" contiene=\"bolita\" izquierda=\"0410\" derecha=\"0412\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0412\" fila=\"04\" columna=\"12\" contiene=\"bolita\" izquierda=\"0411\" derecha=\"0413\" arriba=\"\" abajo=\"0513\" />");
+		inputLaberinto.append("<nodo id=\"0413\" fila=\"04\" columna=\"13\" contiene=\"bolita\" izquierda=\"0412\" derecha=\"0414\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0414\" fila=\"04\" columna=\"14\" contiene=\"bolita\" izquierda=\"0413\" derecha=\"0415\" arriba=\"0413\" abajo=\"0515\" />");
+		inputLaberinto.append("<nodo id=\"0415\" fila=\"04\" columna=\"15\" contiene=\"bolita\" izquierda=\"0414\" derecha=\"0416\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0416\" fila=\"04\" columna=\"16\" contiene=\"bolita\" izquierda=\"0415\" derecha=\"0417\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0417\" fila=\"04\" columna=\"17\" contiene=\"bolita\" izquierda=\"0416\" derecha=\"\" arriba=\"0416\" abajo=\"0518\" />");
+		inputLaberinto.append("<nodo id=\"0418\" fila=\"04\" columna=\"18\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+
+		inputLaberinto.append("<nodo id=\"0500\" fila=\"05\" columna=\"00\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0501\" fila=\"05\" columna=\"01\" contiene=\"bolita\" izquierda=\"\" derecha=\"\" arriba=\"0401\" abajo=\"0601\" />");
+		inputLaberinto.append("<nodo id=\"0502\" fila=\"05\" columna=\"02\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0503\" fila=\"05\" columna=\"03\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0504\" fila=\"05\" columna=\"04\" contiene=\"bolita\" izquierda=\"\" derecha=\"\" arriba=\"0404\" abajo=\"0604\" />");
+		inputLaberinto.append("<nodo id=\"0505\" fila=\"05\" columna=\"05\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0506\" fila=\"05\" columna=\"06\" contiene=\"bolita\" izquierda=\"\" derecha=\"\" arriba=\"0405\" abajo=\"0606\" />");
+		inputLaberinto.append("<nodo id=\"0507\" fila=\"05\" columna=\"07\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0508\" fila=\"05\" columna=\"08\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0509\" fila=\"05\" columna=\"09\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0510\" fila=\"05\" columna=\"10\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0511\" fila=\"05\" columna=\"11\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0512\" fila=\"05\" columna=\"12\" contiene=\"bolita\" izquierda=\"\" derecha=\"\" arriba=\"0412\" abajo=\"0612\" />");
+		inputLaberinto.append("<nodo id=\"0513\" fila=\"05\" columna=\"13\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0514\" fila=\"05\" columna=\"14\" contiene=\"bolita\" izquierda=\"\" derecha=\"\" arriba=\"0414\" abajo=\"0614\" />");
+		inputLaberinto.append("<nodo id=\"0515\" fila=\"05\" columna=\"15\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0516\" fila=\"05\" columna=\"16\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0517\" fila=\"05\" columna=\"17\" contiene=\"bolita\" izquierda=\"\" derecha=\"\" arriba=\"0417\" abajo=\"0617\" />");
+		inputLaberinto.append("<nodo id=\"0518\" fila=\"05\" columna=\"18\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+
+		inputLaberinto.append("<nodo id=\"0600\" fila=\"06\" columna=\"00\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0601\" fila=\"06\" columna=\"01\" contiene=\"bolita\" izquierda=\"\" derecha=\"0602\" arriba=\"0501\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0602\" fila=\"06\" columna=\"02\" contiene=\"bolita\" izquierda=\"0601\" derecha=\"0603\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0603\" fila=\"06\" columna=\"03\" contiene=\"bolita\" izquierda=\"0602\" derecha=\"0604\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0604\" fila=\"06\" columna=\"04\" contiene=\"bolita\" izquierda=\"0603\" derecha=\"\" arriba=\"0504\" abajo=\"0704\" />");
+		inputLaberinto.append("<nodo id=\"0605\" fila=\"06\" columna=\"05\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0606\" fila=\"06\" columna=\"06\" contiene=\"bolita\" izquierda=\"\" derecha=\"0607\" arriba=\"0506\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0607\" fila=\"06\" columna=\"07\" contiene=\"bolita\" izquierda=\"0606\" derecha=\"0608\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0608\" fila=\"06\" columna=\"08\" contiene=\"bolita\" izquierda=\"0607\" derecha=\"\" arriba=\"\" abajo=\"0708\" />");
+		inputLaberinto.append("<nodo id=\"0609\" fila=\"06\" columna=\"09\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0610\" fila=\"06\" columna=\"10\" contiene=\"bolita\" izquierda=\"\" derecha=\"0611\" arriba=\"\" abajo=\"0709\" />");
+		inputLaberinto.append("<nodo id=\"0611\" fila=\"06\" columna=\"11\" contiene=\"bolita\" izquierda=\"0610\" derecha=\"0612\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0612\" fila=\"06\" columna=\"12\" contiene=\"bolita\" izquierda=\"0611\" derecha=\"\" arriba=\"0512\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0613\" fila=\"06\" columna=\"13\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0614\" fila=\"06\" columna=\"14\" contiene=\"bolita\" izquierda=\"\" derecha=\"0613\" arriba=\"0514\" abajo=\"0714\" />");
+		inputLaberinto.append("<nodo id=\"0615\" fila=\"06\" columna=\"15\" contiene=\"bolita\" izquierda=\"0614\" derecha=\"0616\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0616\" fila=\"06\" columna=\"16\" contiene=\"bolita\" izquierda=\"0615\" derecha=\"0617\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0617\" fila=\"06\" columna=\"17\" contiene=\"bolita\" izquierda=\"0616\" derecha=\"\" arriba=\"0517\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0618\" fila=\"06\" columna=\"18\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+
+		inputLaberinto.append("<nodo id=\"0700\" fila=\"07\" columna=\"00\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0701\" fila=\"07\" columna=\"01\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0702\" fila=\"07\" columna=\"02\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0703\" fila=\"07\" columna=\"03\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0704\" fila=\"07\" columna=\"04\" contiene=\"bolita\" izquierda=\"\" derecha=\"\" arriba=\"0604\" abajo=\"0804\" />");
+		inputLaberinto.append("<nodo id=\"0705\" fila=\"07\" columna=\"05\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0706\" fila=\"07\" columna=\"06\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0707\" fila=\"07\" columna=\"07\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0708\" fila=\"07\" columna=\"08\" contiene=\"bolita\" izquierda=\"\" derecha=\"\" arriba=\"0608\" abajo=\"0808\" />");
+		inputLaberinto.append("<nodo id=\"0709\" fila=\"07\" columna=\"09\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0710\" fila=\"07\" columna=\"10\" contiene=\"bolita\" izquierda=\"\" derecha=\"\" arriba=\"0610\" abajo=\"0810\" />");
+		inputLaberinto.append("<nodo id=\"0711\" fila=\"07\" columna=\"11\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0712\" fila=\"07\" columna=\"12\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0713\" fila=\"07\" columna=\"13\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0714\" fila=\"07\" columna=\"14\" contiene=\"bolita\" izquierda=\"\" derecha=\"\" arriba=\"0614\" abajo=\"0814\" />");
+		inputLaberinto.append("<nodo id=\"0715\" fila=\"07\" columna=\"15\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0716\" fila=\"07\" columna=\"16\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0717\" fila=\"07\" columna=\"17\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0718\" fila=\"07\" columna=\"18\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+
+		inputLaberinto.append("<nodo id=\"0800\" fila=\"08\" columna=\"00\" contiene=\"\" izquierda=\"0818\" derecha=\"0801\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0801\" fila=\"08\" columna=\"01\" contiene=\"\" izquierda=\"0800\" derecha=\"0801\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0802\" fila=\"08\" columna=\"02\" contiene=\"\" izquierda=\"0801\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0803\" fila=\"08\" columna=\"03\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0804\" fila=\"08\" columna=\"04\" contiene=\"bolita\" izquierda=\"\" derecha=\"\" arriba=\"0704\" abajo=\"0904\" />");
+		inputLaberinto.append("<nodo id=\"0805\" fila=\"08\" columna=\"05\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0806\" fila=\"08\" columna=\"06\" contiene=\"bolita\" izquierda=\"\" derecha=\"0806\" arriba=\"\" abajo=\"0905\" />");
+		inputLaberinto.append("<nodo id=\"0807\" fila=\"08\" columna=\"07\" contiene=\"bolita\" izquierda=\"0805\" derecha=\"0807\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0808\" fila=\"08\" columna=\"08\" contiene=\"bolita\" izquierda=\"0806\" derecha=\"0808\" arriba=\"0707\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0809\" fila=\"08\" columna=\"09\" contiene=\"bolita\" izquierda=\"0807\" derecha=\"0809\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0810\" fila=\"08\" columna=\"10\" contiene=\"bolita\" izquierda=\"0808\" derecha=\"0810\" arriba=\"0709\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0811\" fila=\"08\" columna=\"11\" contiene=\"bolita\" izquierda=\"0809\" derecha=\"0811\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0812\" fila=\"08\" columna=\"12\" contiene=\"bolita\" izquierda=\"0810\" derecha=\"\" arriba=\"\" abajo=\"0911\" />");
+		inputLaberinto.append("<nodo id=\"0813\" fila=\"08\" columna=\"13\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0814\" fila=\"08\" columna=\"14\" contiene=\"bolita\" izquierda=\"\" derecha=\"\" arriba=\"0713\" abajo=\"0913\" />");
+		inputLaberinto.append("<nodo id=\"0815\" fila=\"08\" columna=\"15\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0816\" fila=\"08\" columna=\"16\" contiene=\"\" izquierda=\"\" derecha=\"0816\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0817\" fila=\"08\" columna=\"17\" contiene=\"\" izquierda=\"0816\" derecha=\"0818\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0818\" fila=\"08\" columna=\"18\" contiene=\"\" izquierda=\"0817\" derecha=\"0800\" arriba=\"\" abajo=\"\" />");
+
+		inputLaberinto.append("<nodo id=\"0900\" fila=\"09\" columna=\"00\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0901\" fila=\"09\" columna=\"01\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0902\" fila=\"09\" columna=\"02\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0903\" fila=\"09\" columna=\"03\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0904\" fila=\"09\" columna=\"04\" contiene=\"bolita\" izquierda=\"\" derecha=\"\" arriba=\"0804\" abajo=\"1004\" />");
+		inputLaberinto.append("<nodo id=\"0905\" fila=\"09\" columna=\"05\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0906\" fila=\"09\" columna=\"06\" contiene=\"bolita\" izquierda=\"\" derecha=\"\" arriba=\"0806\" abajo=\"1006\" />");
+		inputLaberinto.append("<nodo id=\"0907\" fila=\"09\" columna=\"07\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0908\" fila=\"09\" columna=\"08\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0909\" fila=\"09\" columna=\"09\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0910\" fila=\"09\" columna=\"10\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0911\" fila=\"09\" columna=\"11\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0912\" fila=\"09\" columna=\"12\" contiene=\"bolita\" izquierda=\"\" derecha=\"\" arriba=\"0812\" abajo=\"1012\" />");
+		inputLaberinto.append("<nodo id=\"0913\" fila=\"09\" columna=\"13\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0914\" fila=\"09\" columna=\"14\" contiene=\"bolita\" izquierda=\"\" derecha=\"\" arriba=\"0814\" abajo=\"1014\" />");
+		inputLaberinto.append("<nodo id=\"0915\" fila=\"09\" columna=\"15\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0916\" fila=\"09\" columna=\"16\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0917\" fila=\"09\" columna=\"17\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"0918\" fila=\"09\" columna=\"18\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+
+		inputLaberinto.append("<nodo id=\"1000\" fila=\"10\" columna=\"00\" contiene=\"bolita\" izquierda=\"1018\" derecha=\"1001\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1001\" fila=\"10\" columna=\"01\" contiene=\"bolita\" izquierda=\"1000\" derecha=\"1002\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1002\" fila=\"10\" columna=\"02\" contiene=\"bolita\" izquierda=\"1001\" derecha=\"1003\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1003\" fila=\"10\" columna=\"03\" contiene=\"bolita\" izquierda=\"1002\" derecha=\"1004\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1004\" fila=\"10\" columna=\"04\" contiene=\"bolita\" izquierda=\"1003\" derecha=\"1005\" arriba=\"0904\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1005\" fila=\"10\" columna=\"05\" contiene=\"bolita\" izquierda=\"1004\" derecha=\"1006\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1006\" fila=\"10\" columna=\"06\" contiene=\"bolita\" izquierda=\"1005\" derecha=\"\" arriba=\"0906\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1007\" fila=\"10\" columna=\"07\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1008\" fila=\"10\" columna=\"08\" contiene=\"\" izquierda=\"\" derecha=\"1008\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1009\" fila=\"10\" columna=\"09\" contiene=\"\" izquierda=\"1008\" derecha=\"1009\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1010\" fila=\"10\" columna=\"10\" contiene=\"\" izquierda=\"1009\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1011\" fila=\"10\" columna=\"11\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1012\" fila=\"10\" columna=\"12\" contiene=\"bolita\" izquierda=\"\" derecha=\"1013\" arriba=\"0912\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1013\" fila=\"10\" columna=\"13\" contiene=\"bolita\" izquierda=\"1012\" derecha=\"1014\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1014\" fila=\"10\" columna=\"14\" contiene=\"bolita\" izquierda=\"1013\" derecha=\"1015\" arriba=\"0914\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1015\" fila=\"10\" columna=\"15\" contiene=\"bolita\" izquierda=\"1014\" derecha=\"1016\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1016\" fila=\"10\" columna=\"16\" contiene=\"bolita\" izquierda=\"1015\" derecha=\"1017\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1017\" fila=\"10\" columna=\"17\" contiene=\"bolita\" izquierda=\"1016\" derecha=\"1018\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1018\" fila=\"10\" columna=\"18\" contiene=\"bolita\" izquierda=\"1017\" derecha=\"1000\" arriba=\"\" abajo=\"\" />");
+
+		inputLaberinto.append("<nodo id=\"1100\" fila=\"11\" columna=\"00\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1101\" fila=\"11\" columna=\"01\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1102\" fila=\"11\" columna=\"02\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1103\" fila=\"11\" columna=\"03\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1104\" fila=\"11\" columna=\"04\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1105\" fila=\"11\" columna=\"05\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1106\" fila=\"11\" columna=\"06\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1107\" fila=\"11\" columna=\"07\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1108\" fila=\"11\" columna=\"08\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1109\" fila=\"11\" columna=\"09\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1110\" fila=\"11\" columna=\"10\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1111\" fila=\"11\" columna=\"11\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1112\" fila=\"11\" columna=\"12\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1113\" fila=\"11\" columna=\"13\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1114\" fila=\"11\" columna=\"14\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1115\" fila=\"11\" columna=\"15\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1116\" fila=\"11\" columna=\"16\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1117\" fila=\"11\" columna=\"17\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1118\" fila=\"11\" columna=\"18\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+
+		inputLaberinto.append("<nodo id=\"1200\" fila=\"12\" columna=\"00\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1201\" fila=\"12\" columna=\"01\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1202\" fila=\"12\" columna=\"02\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1203\" fila=\"12\" columna=\"03\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1204\" fila=\"12\" columna=\"04\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1205\" fila=\"12\" columna=\"05\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1206\" fila=\"12\" columna=\"06\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1207\" fila=\"12\" columna=\"07\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1208\" fila=\"12\" columna=\"08\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1209\" fila=\"12\" columna=\"09\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1210\" fila=\"12\" columna=\"10\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1211\" fila=\"12\" columna=\"11\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1212\" fila=\"12\" columna=\"12\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1213\" fila=\"12\" columna=\"13\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1214\" fila=\"12\" columna=\"14\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1215\" fila=\"12\" columna=\"15\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1216\" fila=\"12\" columna=\"16\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1217\" fila=\"12\" columna=\"17\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1218\" fila=\"12\" columna=\"18\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+
+		inputLaberinto.append("<nodo id=\"1300\" fila=\"13\" columna=\"00\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1301\" fila=\"13\" columna=\"01\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1302\" fila=\"13\" columna=\"02\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1303\" fila=\"13\" columna=\"03\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1304\" fila=\"13\" columna=\"04\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1305\" fila=\"13\" columna=\"05\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1306\" fila=\"13\" columna=\"06\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1307\" fila=\"13\" columna=\"07\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1308\" fila=\"13\" columna=\"08\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1309\" fila=\"13\" columna=\"09\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1310\" fila=\"13\" columna=\"10\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1311\" fila=\"13\" columna=\"11\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1312\" fila=\"13\" columna=\"12\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1313\" fila=\"13\" columna=\"13\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1314\" fila=\"13\" columna=\"14\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1315\" fila=\"13\" columna=\"15\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1316\" fila=\"13\" columna=\"16\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1317\" fila=\"13\" columna=\"17\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1318\" fila=\"13\" columna=\"18\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+
+		inputLaberinto.append("<nodo id=\"1400\" fila=\"14\" columna=\"00\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1401\" fila=\"14\" columna=\"01\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1402\" fila=\"14\" columna=\"02\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1403\" fila=\"14\" columna=\"03\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1404\" fila=\"14\" columna=\"04\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1405\" fila=\"14\" columna=\"05\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1406\" fila=\"14\" columna=\"06\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1407\" fila=\"14\" columna=\"07\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1408\" fila=\"14\" columna=\"08\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1409\" fila=\"14\" columna=\"09\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1410\" fila=\"14\" columna=\"10\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1411\" fila=\"14\" columna=\"11\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1412\" fila=\"14\" columna=\"12\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1413\" fila=\"14\" columna=\"13\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1414\" fila=\"14\" columna=\"14\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1415\" fila=\"14\" columna=\"15\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1416\" fila=\"14\" columna=\"16\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1417\" fila=\"14\" columna=\"17\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1418\" fila=\"14\" columna=\"18\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+
+		inputLaberinto.append("<nodo id=\"1500\" fila=\"15\" columna=\"00\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1501\" fila=\"15\" columna=\"01\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1502\" fila=\"15\" columna=\"02\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1503\" fila=\"15\" columna=\"03\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1504\" fila=\"15\" columna=\"04\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1505\" fila=\"15\" columna=\"05\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1506\" fila=\"15\" columna=\"06\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1507\" fila=\"15\" columna=\"07\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1508\" fila=\"15\" columna=\"08\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1509\" fila=\"15\" columna=\"09\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1510\" fila=\"15\" columna=\"10\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1511\" fila=\"15\" columna=\"11\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1512\" fila=\"15\" columna=\"12\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1513\" fila=\"15\" columna=\"13\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1514\" fila=\"15\" columna=\"14\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1515\" fila=\"15\" columna=\"15\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1516\" fila=\"15\" columna=\"16\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1517\" fila=\"15\" columna=\"17\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1518\" fila=\"15\" columna=\"18\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+
+		inputLaberinto.append("<nodo id=\"1600\" fila=\"16\" columna=\"00\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1601\" fila=\"16\" columna=\"01\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1602\" fila=\"16\" columna=\"02\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1603\" fila=\"16\" columna=\"03\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1604\" fila=\"16\" columna=\"04\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1605\" fila=\"16\" columna=\"05\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1606\" fila=\"16\" columna=\"06\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1607\" fila=\"16\" columna=\"07\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1608\" fila=\"16\" columna=\"08\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1609\" fila=\"16\" columna=\"09\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1610\" fila=\"16\" columna=\"10\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1611\" fila=\"16\" columna=\"11\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1612\" fila=\"16\" columna=\"12\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1613\" fila=\"16\" columna=\"13\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1614\" fila=\"16\" columna=\"14\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1615\" fila=\"16\" columna=\"15\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1616\" fila=\"16\" columna=\"16\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1617\" fila=\"16\" columna=\"17\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1618\" fila=\"16\" columna=\"18\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+
+		inputLaberinto.append("<nodo id=\"1700\" fila=\"17\" columna=\"00\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1701\" fila=\"17\" columna=\"01\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1702\" fila=\"17\" columna=\"02\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1703\" fila=\"17\" columna=\"03\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1704\" fila=\"17\" columna=\"04\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1705\" fila=\"17\" columna=\"05\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1706\" fila=\"17\" columna=\"06\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1707\" fila=\"17\" columna=\"07\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1708\" fila=\"17\" columna=\"08\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1709\" fila=\"17\" columna=\"09\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1710\" fila=\"17\" columna=\"10\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1711\" fila=\"17\" columna=\"11\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1712\" fila=\"17\" columna=\"12\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1713\" fila=\"17\" columna=\"13\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1714\" fila=\"17\" columna=\"14\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1715\" fila=\"17\" columna=\"15\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1716\" fila=\"17\" columna=\"16\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1717\" fila=\"17\" columna=\"17\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1718\" fila=\"17\" columna=\"18\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+
+		inputLaberinto.append("<nodo id=\"1800\" fila=\"18\" columna=\"00\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1801\" fila=\"18\" columna=\"01\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1802\" fila=\"18\" columna=\"02\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1803\" fila=\"18\" columna=\"03\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1804\" fila=\"18\" columna=\"04\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1805\" fila=\"18\" columna=\"05\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1806\" fila=\"18\" columna=\"06\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1807\" fila=\"18\" columna=\"07\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1808\" fila=\"18\" columna=\"08\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1809\" fila=\"18\" columna=\"09\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1810\" fila=\"18\" columna=\"10\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1811\" fila=\"18\" columna=\"11\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1812\" fila=\"18\" columna=\"12\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1813\" fila=\"18\" columna=\"13\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1814\" fila=\"18\" columna=\"14\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1815\" fila=\"18\" columna=\"15\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1816\" fila=\"18\" columna=\"16\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1817\" fila=\"18\" columna=\"17\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+		inputLaberinto.append("<nodo id=\"1818\" fila=\"18\" columna=\"18\" contiene=\"\" izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\" />");
+
+		inputLaberinto.append("</laberinto>");
+		
+		laberinto = LaberintoReader.read(new ByteArrayInputStream(inputLaberinto.toString().getBytes()));
+	}
+
+
+
+}
