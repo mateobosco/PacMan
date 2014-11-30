@@ -9,8 +9,7 @@ public class SuperposicionesFactory {
 	public void pacManOnFantasma(PacMan pacman, Posicionable posicionable, Celda celdaNueva){
 		if(((Fantasma)posicionable).estado().equals(EstadosFantasma.CAZADOR)){
 			pacman.morir();
-			if(pacman.isFinJuego())
-				celdaNueva.eliminarElementoPosicionable(pacman);
+			celdaNueva.eliminarElementoPosicionable(pacman);
 		}
 		else if(((Fantasma)posicionable).estado().equals(EstadosFantasma.PRESA)){	
 			((Fantasma)posicionable).morir();
@@ -44,8 +43,7 @@ public class SuperposicionesFactory {
 	public void fantasmaOnPacMan(Fantasma fantasma, Posicionable posicionable, Celda celdaNueva){
 		if(fantasma.estado().equals(EstadosFantasma.CAZADOR)){
 			((PacMan)posicionable).morir();
-			if(((PacMan)posicionable).isFinJuego())
-				celdaNueva.eliminarElementoPosicionable(posicionable);
+			celdaNueva.eliminarElementoPosicionable(posicionable);
 		}
 		else if(fantasma.estado().equals(EstadosFantasma.PRESA)){
 			fantasma.morir();

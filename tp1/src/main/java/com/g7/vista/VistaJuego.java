@@ -45,7 +45,7 @@ import com.g7.util.reflexion.ReflexionUtils;
 
 public class VistaJuego extends Application implements Observer{	
 
-	public static final int REFRESH_TIME = 100;
+	public static final int REFRESH_TIME = 300;
 	public static final int INITIAL_TIME = 1000;
 	public static double anchoCelda = 20;
 	public static double altoCelda = 20;

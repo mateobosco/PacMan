@@ -67,6 +67,7 @@ public class Fantasma extends Observable implements Posicionable, Movible {
 		while(this.cantidadMovimientosRestantes - 1 >= 0){
 			if(!this.estadoActual.getDescripcion().equals(EstadosFantasma.MUERTO)){
 				this.mover(posicion);
+				this.notifyObservers();
 			}
 			this.cantidadDeMovimientosEnUnTick = this.conf.getCantidadDeMovimientosFantasmaEnUnTick(estadoActual);
 			this.cantidadMovimientosRestantes--;
@@ -118,6 +119,9 @@ public class Fantasma extends Observable implements Posicionable, Movible {
 	}
 
 	public Direccion direccion(){
+		if(this.direccionActual == null){
+			this.setDireccionActual(new Derecha());
+		}
 		return this.direccionActual;
 	}
 	

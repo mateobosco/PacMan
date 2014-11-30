@@ -82,6 +82,9 @@ public class Fruta extends Observable implements Posicionable, Movible {
 	}
 
 	public Direccion direccion(){
+		if(this.direccionActual == null){
+			this.setDireccionActual(new Derecha());
+		}
 		return this.direccionActual;
 	}
 	

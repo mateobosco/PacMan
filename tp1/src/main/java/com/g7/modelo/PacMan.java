@@ -56,14 +56,17 @@ public class PacMan extends Observable implements Posicionable,Movible {
 		while(this.cantidadMovimientosRestantes - 1 >= 0){
 			if(!this.finJuego){
 				mover();
+				this.notifyObservers();
 			}
 			this.cantidadMovimientosRestantes--;
-			this.notifyObservers();
 		}
 		this.cantidadMovimientosRestantes += this.cantidadDeMovimientosEnUnTick;
 	}
 
 	public Direccion direccion(){
+		if(this.direccionActual == null){
+			this.setDireccion(new Derecha());
+		}
 		return this.direccionActual;
 	}
 
@@ -78,11 +81,12 @@ public class PacMan extends Observable implements Posicionable,Movible {
 
 	public void morir() {
 		this.vidas--;
+		this.setPosicion(new Posicion(new Integer(this.laberinto.getInicioPacman().substring(2, 4)),new Integer(this.laberinto.getInicioPacman().substring(0, 2))));
 		this.setChanged();
 		if(this.vidas <= 0){
 			this.finJuego = true;
-			this.notifyObservers();
 		}
+		this.notifyObservers();
 	}
 
 	public boolean isFinJuego() {
